@@ -1,5 +1,5 @@
 # ng-beginner
-Angular 2.0 beginner tutorial.
+Angular 2 (v15) beginner tutorial.
 
 ## Introduction
 We will build a tic-tac-toe game in this tutorial. The game will have a board of 3x3 squares. Two players will take turns to mark a square with their symbol (either X or O). The player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row wins the game.
@@ -180,3 +180,105 @@ We start by defining the properties of the board component.
   - If it is `'O'`, it means that O won the game.
   - If it is `null`, it means that the game is not finished yet.
   - If it is `undefined`, it means that the game is finished and there is no winner.
+
+We now use the onInit lifecycle hook to initialize the board.
+```typescript
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-board',
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.scss']
+})
+export class BoardComponent implements OnInit {
+  // representation of the nine squares on the board
+  squares: any[];
+  // help us track whose turn it is
+  xIsNext: boolean;
+  // will either be 'X', 'O', null or undefined
+  winner: string | null | undefined;
+
+  ngOnInit() {
+    this.newGame();
+  }
+
+  // we initialize the game
+  //// we set the squares to an array of 9 nulls
+  //// we set the winner to null
+  //// we set xIsNext to true
+  newGame() {
+    this.squares = Array(9).fill(null);
+    this.winner = null;
+    // X is the first player
+    this.xIsNext = true;
+  }
+}
+```
+
+We are going to use a javascript getter to identify the player.
+```typescript
+// identify the current player
+get player() {
+  return this.xIsNext ? 'X' : 'O';
+}
+```
+
+We then are going to simulate a move on the board.
+```typescript
+// simulate a move
+makeMove(idx: number) {
+  if (!this.squares[idx]) {
+    // if the square is falsy, we fill it with the current player
+    this.squares.splice(idx, 1, this.player);
+    // we switch the player
+    this.xIsNext = !this.xIsNext;
+  }
+}
+```
+
+We then check if there is a winner.
+```typescript
+  makeMove(idx: number) {
+    if (!this.squares[idx]) {
+      // if the square is falsy, we fill it with the current player
+      this.squares.splice(idx, 1, this.player);
+      // we switch the player
+      this.xIsNext = !this.xIsNext;
+    }
+    
+    // we check if there is a winner
+    this.winner = this.calculateWinner();
+  }
+  
+  // check if there is a winner
+  // cf React tutorial: https://reactjs.org/tutorial/tutorial.html#declaring-a-winner
+  calculateWinner() {
+    // we define the winning combinations
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    // we loop through the winning combinations
+    for (let i = 0; i < lines.length; i++) {
+      // we destructure the winning combination
+      const [a, b, c] = lines[i];
+      // if the squares at the winning combination indexes are all equal and not falsy
+      if (
+        this.squares[a] &&
+        this.squares[a] === this.squares[b] &&
+        this.squares[a] === this.squares[c]
+      ) {
+        // we return the winner
+        return this.squares[a];
+      }
+    }
+    // if there is no winner, we return null
+    return null;
+  }
+```
