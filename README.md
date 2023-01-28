@@ -282,3 +282,61 @@ We then check if there is a winner.
     return null;
   }
 ```
+
+## Now, let's take care of the User Interface
+
+### Create the board template
+
+We first display the current player.
+`board.component.html`
+```html
+<h1>Current Player: {{ player }} </h1>
+```
+We then display a button to start a new game.
+```html
+<button (click)="newGame()">Start new game</button>
+```
+We then display the nine squares.
+```html
+<main>
+    <app-square
+            *ngFor="let square of squares; let i = index"
+            [value]="square"
+            (click)="makeMove(i)">
+    </app-square>
+</main>
+```
+- `*ngFor` is a structural directive that loops through the squares array and creates a new square component for each element.
+- `[value]="square"` is an attribute directive that passes the value of the square to the square component.
+- `(click)="makeMove(i)"` is an event binding that calls the makeMove method when the user clicks on a square.
+
+We want to finally display the winner, if there is one.
+```html
+<h2>
+    <ng-container *ngIf="winner">Player {{ winner }} wins! </ng-container>
+</h2>
+```
+- `*ngIf` is a structural directive that displays the winner if there is one.
+- `<ng-container>` is a structural directive that does not create a new DOM element.
+- `{{ winner }}` is an interpolation that displays the winner.
+
+The final template looks like this:
+
+`board.component.html`
+```html
+<h1>Current Player: {{ player }} </h1>
+
+<button (click)="newGame()">Start new game</button>
+
+<h2>
+    <ng-container *ngIf="winner">Player {{ winner }} wins! </ng-container>
+</h2>
+
+<main>
+    <app-square
+            *ngFor="let square of squares; let i = index"
+            [value]="square"
+            (click)="makeMove(i)">
+    </app-square>
+</main>
+```
