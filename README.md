@@ -77,6 +77,7 @@ Add the component in the app component template.
 Just as an example, we could display a random number in the square component,
 updated every second.
 ```typescript
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-square',
   template: `
@@ -98,3 +99,39 @@ export class SquareComponent {
 }
 ```
 
+### Pass data to a component
+We want to pass the value of the square to the square component. 
+We will use the `@Input` decorator to do that.
+
+`square.component.ts`
+```typescript
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-square',
+  template: `
+    <p>
+      {{ value }}
+    </p>
+  `,
+  styles: [],
+})
+export class SquareComponent {
+  @Input() value?: 'X' | 'O';
+}
+```
+__Note:__ The `?` after `value` means that the value is optional, so that TypeScript 
+won't complain if we don't pass a value to the component.
+
+`app.component.html`
+```html
+<app-square value='X'></app-square>
+<app-square [value]="'O'"></app-square>
+<router-outlet></router-outlet>
+```
+__Note:__ The `[value]` syntax is called property binding.
+It is used to bind a property of a component to a value. 
+
+>We just made our first UI (or dumb) component because it doesn't have any logic. 
+> Those components are called presentational components. 
+> They are used to display data, are easily testable and reusable.
