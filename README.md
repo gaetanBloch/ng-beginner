@@ -135,3 +135,21 @@ It is used to bind a property of a component to a value.
 >We just made our first UI (or dumb) component because it doesn't have any logic. 
 > Those components are called presentational components. 
 > They are used to display data, are easily testable and reusable.
+
+### Create the board component
+Create a new component called `board` using the Angular CLI.
+```shell
+ ng g c board
+```
+Which will create a new folder called `board` in the `src/app` folder.
+```
+app/board
+├── board.component.html
+├── board.component.scss
+├── board.component.spec.ts
+└── board.component.ts
+```
+- `board.component.html` is the template of the component.
+- `board.component.scss` is the CSS styles of the component.
+- `board.component.spec.ts` is the unit test of the component.
+- `board.component.ts` is the TypeScript code of the component.
