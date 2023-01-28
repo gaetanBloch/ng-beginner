@@ -153,3 +153,30 @@ app/board
 - `board.component.scss` is the CSS styles of the component.
 - `board.component.spec.ts` is the unit test of the component.
 - `board.component.ts` is the TypeScript code of the component.
+
+`board.component.ts`
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-board',
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.scss']
+})
+export class BoardComponent {
+  // representation of the nine squares on the board
+  squares: any[];
+  // help us track whose turn it is
+  xIsNext: boolean;
+  // will either be 'X', 'O', null or undefined
+  winner: string | null | undefined;
+}
+```
+We start by defining the properties of the board component.
+- `squares` is an array of nine elements. Each element will be either 'X', 'O' or null.
+- `xIsNext` is a boolean that will help us track whose turn it is.
+- `winner` will either be `'X'`, `'O'`, `null` or `undefined`
+  - If it is `'X'`, it means that X won the game.
+  - If it is `'O'`, it means that O won the game.
+  - If it is `null`, it means that the game is not finished yet.
+  - If it is `undefined`, it means that the game is finished and there is no winner.
