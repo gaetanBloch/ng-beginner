@@ -1,0 +1,20 @@
+main {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+}
+
+h2 {
+  height: 2rem;
+}
+
+app-square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid gray;
+  background: lightgray;
+  height: 200px;
+  font-size: 5em;
+}
+
+

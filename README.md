@@ -340,3 +340,40 @@ The final template looks like this:
     </app-square>
 </main>
 ```
+
+## We need some styling!
+
+In the file `board.component.scss`, we add the following styles:
+```scss
+main {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+}
+
+h2 {
+  height: 2rem;
+}
+
+app-square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid gray;
+  background: lightgray;
+  height: 200px;
+  font-size: 5em;
+}
+```
+- The display property of the `main` element is set to `grid`. This allows us to display the squares in a grid.
+- The `grid-template-columns` property of the main element is set to `200px 200px 200px`. This allows us to display the squares in a 3x3 grid.
+- The height property of the `h2` element is set to `2rem`. This allows us to fix the size.
+- The display property of the `app-square` element is set to flex. This allows us to display the value of the square in the center of the square.
+
+### Now, our application looks like this:
+
+![Tic Tac Toe](src/assets/tic-tac-toe-raw.png)
+
+![barf](https://media.giphy.com/media/pVAMI8QYM42n6/giphy.gif)
+
+hhmmm... not very pretty, is it?
+
