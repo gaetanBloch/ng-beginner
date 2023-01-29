@@ -375,5 +375,85 @@ app-square {
 
 ![barf](https://media.giphy.com/media/pVAMI8QYM42n6/giphy.gif)
 
-hhmmm... not very pretty, is it?
+> hhmmm... not very pretty, is it?
 
+Let's be smart and use a library to make it look better.
+
+## Let's use Angular Material
+
+There are many third party component libraries that we can use to make our application look better like Bootstrap, Ionic, Nebular, etc. But we are going to use Angular Material.
+
+### Install Angular Material
+
+We are going to use the Angular CLI to install Angular Material.
+```shell
+ng add @angular/material
+```
+The CLI will ask us a few questions:
+- Choose a prebuilt theme name, or "custom" for a custom theme: `Custom`
+- Set up Global Angular Material typography styles? `Yes`
+- Include the Angular animations module? `Do not include`
+```shell
+? Choose a prebuilt theme name, or "custom" for a custom theme: Custom
+? Set up global Angular Material typography styles? Yes
+? Include the Angular animations module? Do not include
+UPDATE package.json (1108 bytes)
+✔ Packages installed successfully.
+UPDATE src/styles.scss (1644 bytes)
+UPDATE src/index.html (578 bytes)
+```
+The CLI updated the `package.json` file, the `src/styles.scss` file and the `src/index.html` file.
+
+Let's see the changes in the UI.
+
+![Tic Tac Toe](src/assets/tic-tac-toe-mat-0.png)
+
+Not much has changed aside from the font and the margin.
+
+### Let's checkout the generated code
+
+`src/styles.scss`
+```scss
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$ng-beginner-primary: mat.define-palette(mat.$indigo-palette);
+$ng-beginner-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$ng-beginner-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$ng-beginner-theme: mat.define-light-theme((
+  color: (
+    primary: $ng-beginner-primary,
+    accent: $ng-beginner-accent,
+    warn: $ng-beginner-warn,
+  )
+));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($ng-beginner-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+```
+
+We can see that a lot was added in terms of theming but by default but not much will change unless
+we use material components and classes.
