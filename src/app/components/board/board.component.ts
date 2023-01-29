@@ -23,7 +23,7 @@ export class BoardComponent implements OnInit {
   //// we set xIsNext to true
   newGame() {
     this.squares = Array(9).fill(null);
-    this.winner = null;
+    this.winner = undefined;
     // X is the first player
     this.xIsNext = true;
   }
@@ -71,10 +71,12 @@ export class BoardComponent implements OnInit {
         this.squares[a] === this.squares[c]
       ) {
         // we return the winner
-        return this.squares[a];
+        // we use the nullish coalescing operator to return the winner
+        // if it's not null or undefined (meaning there is already a winner)
+        return this.winner ?? this.squares[a];
       }
     }
-    // if there is no winner, we return null
-    return null;
+    // if there is no winner yet, return undefined, if it's a draw, return null
+    return this.squares.includes(null) ? undefined : null;
   }
 }
