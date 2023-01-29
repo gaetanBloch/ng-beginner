@@ -101,6 +101,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "ng-beginner:build:production",
+            "firebaseProject": "ng-beginner-gbloch",
+            "firebaseHostingSite": "ng-beginner-gbloch"
+          }
         }
       }
     }

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ng-beginner-gbloch": {
+      "hosting": {
+        "ng-beginner": [
+          "ng-beginner-gbloch"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ng-beginner-gbloch"
+  }
+}

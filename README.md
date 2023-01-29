@@ -884,6 +884,77 @@ Finally, it will generate a `manifest.webmanifest` file in the `src` folder.
 }
 ```
 
+## Build
+Now we can build our app in order to deploy it online
+```shell
+ng build
+```
+
+## Deploy on Firebase Hosting
+We can deploy our app on Firebase Hosting.
+
+### Prerequisites
+- Create a Firebase account, here is a [link](https://firebase.google.com/).
+- Install the Firebase CLI
+```shell
+npm install -g firebase-tools
+```
+- Login to Firebase
+```shell
+firebase login:ci --no-localhost
+firebase login
+```
+- Create a new project on Firebase, here is a [link](https://console.firebase.google.com/).
+
+### Add Angular Firebase
+
+```shell
+ng add @angular/fire
+ℹ Using package manager: npm
+✔ Found compatible package version: @angular/fire@7.5.0.
+✔ Package information loaded.
+
+The package @angular/fire@7.5.0 will be installed and executed.
+Would you like to proceed? Yes
+✔ Packages successfully installed.
+UPDATE package.json (1181 bytes)
+✔ Packages installed successfully.
+? What features would you like to setup? ng deploy -- hosting
+Using firebase-tools version 11.21.0
+? Which Firebase account would you like to use? gaetan.bloch@gmail.com
+✔ Preparing the list of your Firebase projects
+? Please select a project: ng-beginner
+? Please select a hosting site: https://ng-beginner-gbloch.web.app
+CREATE .firebaserc (206 bytes)
+UPDATE .gitignore (3826 bytes)
+UPDATE angular.json (3406 bytes)
+UPDATE firebase.json (795 bytes)
+```
+
+### Deploy
+Then we can deploy our app with
+```shell
+ng deploy
+=== Deploying to 'ng-beginner-gbloch'...
+
+i  deploying hosting
+i  hosting[ng-beginner-gbloch]: beginning deploy...
+i  hosting[ng-beginner-gbloch]: found 26 files in dist/ng-beginner
+i  hosting: uploading new files [14/24] (58%)
+i  hosting: upload complete
+✔  hosting[ng-beginner-gbloch]: file upload complete
+i  hosting[ng-beginner-gbloch]: finalizing version...
+✔  hosting[ng-beginner-gbloch]: version finalized
+i  hosting[ng-beginner-gbloch]: releasing new version...
+✔  hosting[ng-beginner-gbloch]: release complete
+
+✔  Deploy complete!
+
+Project Console: https://console.firebase.google.com/project/ng-beginner-gbloch/overview
+Hosting URL: https://ng-beginner-gbloch.web.app
+
+```
+
 # Inspired by
 - https://beta.reactjs.org/learn/tutorial-tic-tac-toe
 - https://fireship.io/courses/angular
