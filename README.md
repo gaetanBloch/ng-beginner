@@ -638,3 +638,26 @@ export class SquareComponent {
 >AND Voilà!
 
 ![Tic Tac Toe](src/assets/tic-tac-toe-mat-2.png)
+
+### Going further in theming
+
+I want to make improvement in theming:
+- Define my custom palette
+- Handle dark / light mode depending on the user's system preferences
+
+After a few changes it looks like this on my System :
+
+![Tic Tac Toe](src/assets/tic-tac-toe-mat-3.png)
+
+> Definitely better!
+
+Plus, if I were to change my system preferences to light, the theme would change automatically.
+You wouldn't even need to refresh the page.
+
+![Tic Tac Toe](src/assets/tic-tac-toe-mat-4.png)
+
+
+I won't go into implementation details since it is not that complicated and I created
+a Pull Request intentionally, so you can check the code diff:
+- [PR](https://github.com/gaetanBloch/ng-beginner/pull/1)
+- [Diff](https://github.com/gaetanBloch/ng-beginner/pull/1/files)
