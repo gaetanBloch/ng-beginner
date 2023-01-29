@@ -754,3 +754,7 @@ Then we can use it in our templates.
   `,
 ```
 That's it!
+
+# Inspired by
+- https://beta.reactjs.org/learn/tutorial-tic-tac-toe
+- https://fireship.io/courses/angular
