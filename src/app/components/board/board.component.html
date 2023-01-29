@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-header>
-        <h1 *ngIf="!winner; else gameOver">
+        <h1 *ngIf="!winner || winner === null; else gameOver">
             Next Player :
             <b class="{{ player | getClass }}">{{ player }}</b>
         </h1>
