@@ -3,11 +3,16 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-square',
   template: `
-    <p>
       {{ value }}
-    </p>
   `,
-  styles: [],
+  styles: [`
+    :host {
+      font-size: 4rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  `],
 })
 export class SquareComponent {
   @Input() value?: 'X' | 'O';

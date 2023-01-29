@@ -1,15 +1,22 @@
-<h1>Current Player: {{ player }} </h1>
+<mat-card>
+    <mat-card-header>
+        <h1>Current Player : {{ player }} </h1>
+    </mat-card-header>
+    <mat-card-content>
+        <button mat-flat-button color="primary" (click)="newGame()">
+            NEW GAME
+        </button>
 
-<button (click)="newGame()">Start new game</button>
+        <h2>
+            <ng-container *ngIf="winner">Player {{ winner }} wins ! </ng-container>
+        </h2>
 
-<h2>
-    <ng-container *ngIf="winner">Player {{ winner }} wins! </ng-container>
-</h2>
-
-<main>
-    <app-square
-            *ngFor="let square of squares; let i = index"
-            [value]="square"
-            (click)="makeMove(i)">
-    </app-square>
-</main>
+        <main>
+            <app-square
+                    *ngFor="let square of squares; let i = index"
+                    [value]="square"
+                    (click)="makeMove(i)">
+            </app-square>
+        </main>
+    </mat-card-content>
+</mat-card>

@@ -25,7 +25,7 @@ $ng-beginner-theme: mat.define-light-theme((
     primary: $ng-beginner-primary,
     accent: $ng-beginner-accent,
     warn: $ng-beginner-warn,
-  )
+  ),
 ));
 
 // Include theme styles for core and each component used in your app.

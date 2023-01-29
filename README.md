@@ -455,5 +455,186 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 ```
 
-We can see that a lot was added in terms of theming but by default but not much will change unless
+The following only has impact for now:
+- The `html` and `body` elements have a height of 100%.
+- The `body` element has a margin of 0.
+- The `body` element has a font-family of Roboto.
+
+We can see that a lot was added in terms of theming but by default not much will change unless
 we use material components and classes.
+
+As for the `src/index.html` file, the following was added:
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NgBeginner</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body class="mat-typography">
+  <app-root></app-root>
+</body>
+</html>
+```
+
+It added the following:
+- The `link` element with the `href` attribute set to `https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap` was added. This allows us to use the Roboto font.
+- The `link` element with the `href` attribute set to `https://fonts.googleapis.com/icon?family=Material+Icons` was added. This allows us to use the Material Icons.
+- The `body` element has the `mat-typography` class. This allows us to use the typography styles of Angular Material.
+
+## Now it's time to make it pretty!
+
+### The button
+
+Let's start with the button.
+
+First, we need to import the `MatButtonModule` in the `app.module.ts` file.
+```typescript
+import {MatButtonModule} from '@angular/material/button';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    SquareComponent,
+    BoardComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    MatButtonModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+```
+
+Then, we can use the `mat-raised-button` directive in the `board.component.html` file 
+and color it with the `color` attribute.
+
+```html
+<h1>Current Player: {{ player }} </h1>
+
+<button mat-raised-button color="primary" (click)="newGame()">NEW GAME</button>
+
+<h2>
+    <ng-container *ngIf="winner">Player {{ winner }} wins! </ng-container>
+</h2>
+
+<main>
+    <app-square
+            *ngFor="let square of squares; let i = index"
+            [value]="square"
+            (click)="makeMove(i)">
+    </app-square>
+</main>
+```
+
+Let's take a look at the UI.
+
+![Tic Tac Toe](src/assets/tic-tac-toe-mat-1.png)
+
+> Cool button, right?
+
+### Next Level
+
+We are going to use the `MatCardModule` to make the board look better.
+```html
+<mat-card>
+    <mat-card-header>
+        <h1>Current Player : {{ player }} </h1>
+    </mat-card-header>
+    <mat-card-content>
+        <button mat-flat-button color="primary" (click)="newGame()">
+            NEW GAME
+        </button>
+
+        <h2>
+            <ng-container *ngIf="winner">Player {{ winner }} wins ! </ng-container>
+        </h2>
+
+        <main>
+            <app-square
+                    *ngFor="let square of squares; let i = index"
+                    [value]="square"
+                    (click)="makeMove(i)">
+            </app-square>
+        </main>
+    </mat-card-content>
+</mat-card>
+```
+
+And modify the `board.component.scss` file to clean, center it and make it responsive.
+```scss
+$square-size: 8rem;
+
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+mat-card {
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2em;
+}
+
+main {
+  display: grid;
+  grid-template-columns: $square-size $square-size $square-size;
+}
+
+h2 {
+  height: 2rem;
+}
+
+app-square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid;
+  height: $square-size;
+}
+```
+Some explanations:
+- The `$square-size` variable is used to define the dimensions of the grid.
+- For the grid, we changed the unit to `rem` to make it responsive.
+- The `:host` selector is used to select the host element of the component. In this case, it is the `board.component.html` file.
+- We use `display: flex` and `justify-content: center` to center the `mat-card` element.
+- Inside the `mat-card` element, we use `display: flex`, `text-align: center`, `flex-direction: column` and `align-items: center` to center the content.
+
+Also tweaked the `square.component.ts` file to be responsible for the font-size and change
+the cursor on hover.
+```typescript
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-square',
+  template: `
+      {{ value }}
+  `,
+  styles: [`
+    :host {
+      font-size: 4rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  `],
+})
+export class SquareComponent {
+  @Input() value?: 'X' | 'O';
+}
+```
+
+>AND Voilà!
+
+![Tic Tac Toe](src/assets/tic-tac-toe-mat-2.png)
