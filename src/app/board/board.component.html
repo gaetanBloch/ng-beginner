@@ -1,6 +1,9 @@
 <mat-card>
     <mat-card-header>
-        <h1>Current Player : {{ player }} </h1>
+        <h1>
+            Next Player :
+            <b [class]="player === 'X' ? 'primary' : 'accent'">{{ player }}</b>
+        </h1>
     </mat-card-header>
     <mat-card-content>
         <button mat-flat-button color="primary" (click)="newGame()">
@@ -8,7 +11,11 @@
         </button>
 
         <h2>
-            <ng-container *ngIf="winner">Player {{ winner }} wins ! </ng-container>
+            <ng-container *ngIf="winner">
+                Player
+                <b [class]="winner === 'X' ? 'primary' : 'accent'">{{ winner }}</b>
+                wins !
+            </ng-container>
         </h2>
 
         <main>

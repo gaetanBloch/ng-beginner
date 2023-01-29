@@ -3,7 +3,9 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-square',
   template: `
+    <span [class]="value === 'X' ? 'primary' : 'accent'" >
       {{ value }}
+    </span>
   `,
   styles: [`
     :host {
