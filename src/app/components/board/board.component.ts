@@ -11,7 +11,7 @@ export class BoardComponent implements OnInit {
   // help us track whose turn it is
   xIsNext: boolean;
   // will either be 'X', 'O', null or undefined
-  winner: string | null | undefined;
+  winner: 'X' | 'O' | null | undefined;
 
   ngOnInit() {
     this.newGame();

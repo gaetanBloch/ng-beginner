@@ -661,3 +661,96 @@ I won't go into implementation details since it is not that complicated and I cr
 a Pull Request intentionally, so you can check the code diff:
 - [PR](https://github.com/gaetanBloch/ng-beginner/pull/1)
 - [Diff](https://github.com/gaetanBloch/ng-beginner/pull/1/files)
+
+## Pipes
+
+I just noticed in my code that I was repeating the same logic in the same or different templates.
+
+In `square.component.html`
+```html
+<h1>
+    Next Player :
+    <b [class]="player === 'X' ? 'primary' : 'accent'">{{ player }}</b>
+</h1>
+...
+<ng-container *ngIf="winner">
+    Player
+    <b [class]="winner === 'X' ? 'primary' : 'accent'">{{ winner }}</b>
+    wins !
+</ng-container>
+```
+And in `board.component.ts`
+```typescript
+template: `
+    <span [class]="value === 'X' ? 'primary' : 'accent'" >
+      {{ value }}
+    </span>
+  `,
+```
+If you were to re-use some code in the same template, then it's easy, 
+you can create a function in the component and call it in the template.
+
+> What if you want to re-use some code in different templates?
+
+That's where the pipes come in.
+Pipes are a way to transform data in the template. There are pre-defined pipes in Angular, for 
+example, the `uppercase` pipe.
+```html
+{{ 'hello' | uppercase }}
+```
+See https://angular.io/guide/pipes for more information.
+
+Here, we need to create a custom pipe. Let's create a `getClass` pipe that will return the class
+depending on the player.
+
+You can generate a pipe with the Angular CLI:
+```shell
+ng generate pipe pipes/getClass
+```
+Angular will generate a file `getClass.pipe.ts` in the `src/app/pipes` folder.
+```typescript
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'getClass'
+})
+export class GetClassPipe implements PipeTransform {
+
+  transform(value: unknown, ...args: unknown[]): unknown {
+    return null;
+  }
+
+}
+```
+Let's modify it to fit our needs.
+```typescript
+import { Pipe, PipeTransform } from '@angular/core';
+@Pipe({
+  name: 'getClass'
+})
+export class GetClassPipe implements PipeTransform {
+  transform(player: 'X' | 'O' | undefined | null): string {
+    return player === 'X' ? 'primary' : 'accent';
+  }
+}
+```
+Then we can use it in our templates.
+```html
+<h1>
+    Next Player :
+    <b class="{{ player | getClass }}">{{ player }}</b>
+</h1>
+<ng-container *ngIf="winner">
+    Player
+    <b class="{{ winner | getClass }}">{{ winner }}</b>
+    wins !
+</ng-container>
+```
+```html
+  template: `
+    <span class="{{ value | getClass }}" >
+      {{ value }}
+    </span>
+  `,
+```
+That's it!

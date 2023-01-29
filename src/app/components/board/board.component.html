@@ -2,7 +2,7 @@
     <mat-card-header>
         <h1>
             Next Player :
-            <b [class]="player === 'X' ? 'primary' : 'accent'">{{ player }}</b>
+            <b class="{{ player | getClass }}">{{ player }}</b>
         </h1>
     </mat-card-header>
     <mat-card-content>
@@ -13,7 +13,7 @@
         <h2>
             <ng-container *ngIf="winner">
                 Player
-                <b [class]="winner === 'X' ? 'primary' : 'accent'">{{ winner }}</b>
+                <b class="{{ winner | getClass }}">{{ winner }}</b>
                 wins !
             </ng-container>
         </h2>
